@@ -13,3 +13,6 @@ es:
   common:
     back: Atrás
   hello: Hola mundo
+  task:
+    errrors:
+      invalid_due_date: La fecha no puede ser pasada

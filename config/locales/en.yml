@@ -13,3 +13,6 @@ en:
   common:
     back: Back
   hello: Hello world
+  task:
+    errrors:
+      invalid_due_date: Invalid due date
