@@ -1,8 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :category
-  belongs_to :owner, class_name: 'User'
-
-  has_many :owner_tasks, through: :owners
+  belongs_to :owner, class_name: 'User'  
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false}
