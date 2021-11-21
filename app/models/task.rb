@@ -8,6 +8,9 @@ class Task < ApplicationRecord
   # disallow past due dates
   validate :future_due_date
 
+  has_many :participants
+  has_many :commited_users, through: :participants, source: :user
+
   def future_due_date
     return if due_date.blank?
     return if due_date > Date.today
