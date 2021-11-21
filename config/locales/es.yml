@@ -4,4 +4,10 @@ es:
     form:
       name: Nombre
     new_category: Nueva Categoría
+  activerecord:
+    models:
+      category:
+        one: Categoría
+        others: Categorías
+        
   hello: Hola mundo
