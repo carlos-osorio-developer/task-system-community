@@ -25,6 +25,7 @@ gem 'hamlit'
 gem 'simple_form'
 gem 'rails-i18n'
 gem 'devise'
+gem 'cocoon'
 
 
 # Use Active Storage variant
