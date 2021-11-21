@@ -9,5 +9,7 @@ es:
       category:
         one: Categoría
         others: Categorías
-        
+  common:
+    back: Atrás
+
   hello: Hola mundo
