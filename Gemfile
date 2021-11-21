@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'hamlit'
 gem 'simple_form'
 gem 'rails-i18n'
+gem 'devise'
 
 
 # Use Active Storage variant
