@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
+  # rescue_from ActiveRecord::RecordNotUnique do |exception|
+  #   flash[:alert] = "participants cant be repeated in the same task"
+  #   redirect_to new_task_path
+  # end
+
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
@@ -24,27 +29,41 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.owner = current_user    
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    
+    if a == a.uniq       
+      respond_to do |format|
+        if @task.save
+          format.html { redirect_to @task, notice: "Task was successfully created." }
+          format.json { render :show, status: :created, location: @task }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:alert] = "participants cant be repeated in the same task"
+      redirect_to new_task_path
     end
   end
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update    
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    
+    if a == a.uniq       
+      respond_to do |format|            
+        if @task.update(task_params)
+          format.html { redirect_to @task, notice: "Task was successfully updated." }
+          format.json { render :show, status: :ok, location: @task }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:alert] = "participants cant be repeated in the same task"
+      redirect_to new_task_path
     end
   end
 
@@ -72,6 +91,7 @@ class TasksController < ApplicationController
         :category_id,
         participants_attributes: [
           :user_id,
+          @task.id,
           :role,
           :id,
           :_destroy
