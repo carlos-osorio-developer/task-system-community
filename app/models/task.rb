@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  before_create :create_code
+
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
 
@@ -18,5 +20,9 @@ class Task < ApplicationRecord
     return if due_date.blank?
     return if due_date > Date.today
     errors.add :due_date, I18n.t('task.errrors.invalid_due_date')
+  end
+
+  def create_code
+    self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(4)}"
   end
 end
