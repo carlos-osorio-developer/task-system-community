@@ -26,6 +26,7 @@ gem 'simple_form'
 gem 'rails-i18n'
 gem 'devise'
 gem 'cocoon'
+gem 'cancancan'
 
 
 # Use Active Storage variant

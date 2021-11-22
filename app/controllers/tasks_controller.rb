@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  load_and_authorize_resource
+  before_action :set_task, only: %i[ show edit update destroy ]  
 
   # rescue_from ActiveRecord::RecordNotUnique do |exception|
   #   flash[:alert] = "participants cant be repeated in the same task"
@@ -29,7 +30,12 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.owner = current_user    
 
-    a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    if task_params[:participants_attributes].nil?
+      a = [0]
+    else
+      a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    end
+    
     
     if a == a.uniq       
       respond_to do |format|
@@ -49,7 +55,11 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update    
-    a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    if task_params[:participants_attributes].nil?
+      a = [0]
+    else
+      a = task_params[:participants_attributes].values.collect{|value| value["user_id"]}     
+    end       
     
     if a == a.uniq       
       respond_to do |format|            
@@ -90,8 +100,7 @@ class TasksController < ApplicationController
         :due_date, 
         :category_id,
         participants_attributes: [
-          :user_id,
-          @task.id,
+          :user_id,          
           :role,
           :id,
           :_destroy
