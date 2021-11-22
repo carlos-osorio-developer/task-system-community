@@ -1,3 +1,5 @@
 .nested_fields
-  = f.input :user_id, label: 'Participant', collection: User.all - [current_user]
+  - values = User.all - [current_user]
+  - values.map!{|u| [u.email, u.id]}
+  = f.input :user_id, label: 'Participant', collection: values
   = f.input :role

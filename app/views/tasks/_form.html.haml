@@ -11,9 +11,7 @@
     #addParticipants
       = link_to_add_association f, :participants, 'data-association-insert-node' => '.participants .participants-container', 'data-turbolinks' => false do
         agregar participantes        
-    .participants
-      = f.simple_fields_for :participants do |p|
-        = render 'participants_form', f: p
+    .participants      
     .participants-container
   .form-actions
     = f.button :submit
