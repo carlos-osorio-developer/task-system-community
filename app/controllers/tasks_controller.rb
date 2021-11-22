@@ -9,7 +9,9 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.left_joins(:participants).where(
+      "participants.user_id = ? OR owner_id = ?", current_user.id, current_user.id
+    ).group(:id).order(:id)
   end
 
   # GET /tasks/1 or /tasks/1.json
