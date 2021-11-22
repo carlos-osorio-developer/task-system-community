@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.owner = current_user
+    @task.owner = current_user    
 
     respond_to do |format|
       if @task.save
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   end
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
-  def update
+  def update    
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: "Task was successfully updated." }
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
         :description, 
         :due_date, 
         :category_id,
-        participant_attributes: [
+        participants_attributes: [
           :user_id,
           :role,
           :id,
