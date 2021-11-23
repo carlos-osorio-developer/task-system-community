@@ -1,6 +1,6 @@
 %h1
   Hola 
-  = user.name
+  = @user.email
   , tienes una nueva tarea
 %p
   %b Nombre
@@ -16,4 +16,4 @@
   = @task.due_date
 %p 
   %b Enlace
-  = task_path @task.code, @task 
+  = link_to @task.code, @task 

@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   before_create :create_code
+  after_create :send_email
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
@@ -24,5 +25,13 @@ class Task < ApplicationRecord
 
   def create_code
     self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(4)}"
+  end
+
+  
+  def send_email
+    part_users = participants.map(&:user)
+    ([owner] + part_users).each do |user|      
+      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
+    end
   end
 end

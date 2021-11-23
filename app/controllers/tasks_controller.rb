@@ -1,18 +1,11 @@
 class TasksController < ApplicationController
   load_and_authorize_resource
-  before_action :set_task, only: %i[ show edit update destroy ]  
-  after_create :send_email
+  before_action :set_task, only: %i[ show edit update destroy ]    
 
   # rescue_from ActiveRecord::RecordNotUnique do |exception|
   #   flash[:alert] = "participants cant be repeated in the same task"
   #   redirect_to new_task_path
   # end
-
-  def send_email
-    [self.owner self.commited_users].each do |user|
-      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
-    end
-  end
 
   # GET /tasks or /tasks.json
   def index
