@@ -8,6 +8,8 @@ class Task < ApplicationRecord
   has_many :participants
   has_many :commited_users, through: :participants, source: :user
 
+  has_many :notes
+
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false}
   validates :due_date, presence: true
