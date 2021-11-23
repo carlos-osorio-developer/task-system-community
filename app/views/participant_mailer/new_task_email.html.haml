@@ -1,0 +1,19 @@
+%h1
+  Hola 
+  = user.name
+  , tienes una nueva tarea
+%p
+  %b Nombre
+  = @task.name
+%p
+  %b Descripción
+  = @task.description
+%p 
+  %b Categoría
+  = @task.category.name
+%p
+  %b Fecha de entrega
+  = @task.due_date
+%p 
+  %b Enlace
+  = task_path @task.code, @task 
