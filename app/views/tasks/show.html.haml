@@ -14,11 +14,12 @@
   = @task.category
 
 .notes-container
-  %p
+  .notes
     %b Notes:
     - @task.notes.collect do |note|
-      %p
-        = note.body      
+      = render 'tasks/notes/note.html.haml', note: note
+      
+      
   = simple_form_for Note.new, url: task_notes_path(task_id: @task.id) do |f|
     = f.input :body, label: false, as: :string, placeholder: "Add a note...", input_html: { autocomplete: :off }
 
