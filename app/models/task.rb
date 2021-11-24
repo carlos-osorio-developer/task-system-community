@@ -5,10 +5,10 @@ class Task < ApplicationRecord
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
 
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :commited_users, through: :participants, source: :user
 
-  has_many :notes
+  has_many :notes, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false}
