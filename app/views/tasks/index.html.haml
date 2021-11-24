@@ -8,10 +8,10 @@
           .task-container
             .task-info
               .task-title
-                %span.small= "[##{task.code}]"
+                %span.small= "[#{task.code}]"
                 = task.name
                 %span.task-category
-                = task.category.name
+                  = task.category.name
               .task-description= task.description
               .task-dates
                 %b= task.owner.email
