@@ -20,7 +20,7 @@
       = render 'tasks/notes/note.html.haml', note: note
       
       
-  = simple_form_for Note.new, url: task_notes_path(task_id: @task.id) do |f|
+  = simple_form_for Note.new, url: task_notes_path(task_id: @task.id), remote: true do |f|
     = f.input :body, label: false, as: :string, placeholder: "Add a note...", input_html: { autocomplete: :off }
 
 = link_to 'Edit', edit_task_path(@task)
