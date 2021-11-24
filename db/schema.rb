@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_21_141214) do
+ActiveRecord::Schema.define(version: 2021_11_23_225336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,27 @@ ActiveRecord::Schema.define(version: 2021_11_21_141214) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_notes_on_task_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer "role"
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_participants_on_task_id"
+    t.index ["user_id", "task_id"], name: "index_participants_on_user_id_and_task_id", unique: true
+    t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -29,8 +50,28 @@ ActiveRecord::Schema.define(version: 2021_11_21_141214) do
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "owner_id", null: false
+    t.string "code"
     t.index ["category_id"], name: "index_tasks_on_category_id"
+    t.index ["owner_id"], name: "index_tasks_on_owner_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "notes", "tasks"
+  add_foreign_key "notes", "users"
+  add_foreign_key "participants", "tasks"
+  add_foreign_key "participants", "users"
   add_foreign_key "tasks", "categories"
+  add_foreign_key "tasks", "users", column: "owner_id"
 end
