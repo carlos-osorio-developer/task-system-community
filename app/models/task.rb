@@ -1,6 +1,5 @@
 class Task < ApplicationRecord
   before_create :create_code
-  after_create :send_email
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
