@@ -43,6 +43,6 @@ class User
   # has_many :commitments, through: :commits
 
   def commitments
-    participations.include(:task).map(&:task)
+    participations.includes(:task).map(&:task)
   end
 end
