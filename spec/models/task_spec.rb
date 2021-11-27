@@ -20,7 +20,8 @@ RSpec.describe Task, type: :model do
       let(:participant_1) { build :participant, :responsible }
       let(:participant_2) { build :participant, :follower }
 
-      subject do
+      # assign variable task as the subject of the test
+      subject(:task) do
         described_class.new(
           name: 'Task 1',
           description: 'Description 1',
@@ -32,6 +33,23 @@ RSpec.describe Task, type: :model do
       end
 
       it { is_expected.to be_valid }
+
+      context 'after save' do
+        # use the :task subject to save the task
+        before (:each) { task.save }
+        it { is_expected.to be_persisted }
+
+        it 'has a computed code' do
+          expect(task.code).to be_present
+        end
+      end    
+      
+      context 'with due_date in the past' do
+        # with tap method, we can change any param of the created task model
+        subject { task.tap { |t| t.due_date = Date.yesterday } }
+
+        it { is_expected.to_not be_valid }
+      end
     end
     context 'with params from FactoryBot' do
       let(:participants_count) { 4 }
