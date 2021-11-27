@@ -1,12 +1,15 @@
-class Task < ApplicationRecord
+class Task
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
   before_create :create_code
-  after_create :send_email
+  # after_create :send_email
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
 
   has_many :participants, dependent: :destroy
-  has_many :commited_users, through: :participants, source: :user
+  # has_many :commited_users, through: :participants, source: :user
 
   has_many :notes, dependent: :destroy
 
@@ -18,6 +21,9 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :participants, allow_destroy: true
 
+  def commited_users
+    participants.includes(:user).map(&:user)
+  end
   
   def future_due_date
     return if due_date.blank?
