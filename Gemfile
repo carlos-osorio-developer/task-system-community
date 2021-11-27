@@ -63,6 +63,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'database_cleaner', '~> 1.99'
   gem 'faker'
+  gem 'mongoid-rspec'
   # gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
