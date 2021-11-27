@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: 'controller'
 
   config.before(:suite) do
-    DatabaseCleaner.orm = 'mongoid'
+    DatabaseCleaner.orm = :mongoid
     DatabaseCleaner.clean
   end
 

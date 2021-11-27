@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :task do
     sequence(:name) { |n| "Tarea #{n}" }
     sequence(:description) { |n| "Descripción de la tarea #{n}" }
-    sequence(:due_date) { Date.today + n.day }
+    sequence(:due_date) { |n| Date.today + n.day }
     #association with category
     category
     #association with owner through user factory
