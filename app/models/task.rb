@@ -2,6 +2,11 @@ class Task
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  field :name, type: String
+  field :description, type: String
+  field :due_date, type: Date
+  field :code, type: String
+
   before_create :create_code
   # after_create :send_email
 
