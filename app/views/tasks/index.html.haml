@@ -29,3 +29,6 @@
                     = link_to 'Show', task, class: 'dropdown-item'
                     = link_to 'Edit', edit_task_path(task), class: 'dropdown-item'
                     = link_to 'Destroy', task, :method => :delete, :data => { :confirm => t('common.are_you_sure') }, class: 'dropdown-item'                              
+
+:javascript
+  OSORIO.tasks.index.setup();
