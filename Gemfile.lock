@@ -323,6 +323,7 @@ DEPENDENCIES
   rails-i18n
   rspec-rails
   sass-rails (>= 6)
+  selenium-webdriver
   simple_form
   spring
   turbolinks (~> 5)

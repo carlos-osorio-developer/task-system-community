@@ -65,7 +65,7 @@ group :test do
   gem 'faker'
   gem 'mongoid-rspec'
   gem 'rails-controller-testing'
-  # gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end

@@ -43,6 +43,8 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: 'controller'
   # se usan helpers de integración, para pruebas de tipo request
   config.include Devise::Test::IntegrationHelpers, type: 'request'
+  # se usan helpers de integración, para pruebas de tipo system
+  config.include Devise::Test::IntegrationHelpers, type: 'system'
 
   config.before(:suite) do
     DatabaseCleaner.orm = :mongoid
