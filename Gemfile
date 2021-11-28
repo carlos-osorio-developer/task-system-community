@@ -64,6 +64,7 @@ group :test do
   gem 'database_cleaner', '~> 1.99'
   gem 'faker'
   gem 'mongoid-rspec'
+  gem 'rails-controller-testing'
   # gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'

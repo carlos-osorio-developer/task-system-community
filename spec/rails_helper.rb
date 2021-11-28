@@ -39,7 +39,10 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
+  # se usan helpers de controlador, para pruebas de tipo controlador
   config.include Devise::Test::ControllerHelpers, type: 'controller'
+  # se usan helpers de integración, para pruebas de tipo request
+  config.include Devise::Test::IntegrationHelpers, type: 'request'
 
   config.before(:suite) do
     DatabaseCleaner.orm = :mongoid
