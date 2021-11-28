@@ -8,7 +8,7 @@ class Task
   field :code, type: String
 
   before_create :create_code
-  # after_create :send_email
+  after_create :send_email
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
