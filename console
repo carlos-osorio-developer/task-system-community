@@ -1,0 +1,13 @@
+
+[1mFrom:[0m /home/osoriodevelops/microverse/microverse-projects/4-RoR/7-task-system-community/spec/system/tasks_spec.rb:30 :
+
+    [1;34m25[0m:       fill_in [31m[1;31m'[0m[31mtask[description][1;31m'[0m[31m[0m, [35mwith[0m: [31m[1;31m'[0m[31mDescription 1[1;31m'[0m[31m[0m
+    [1;34m26[0m:       fill_in [31m[1;31m'[0m[31mtask[due_date][1;31m'[0m[31m[0m, [35mwith[0m: [1;34;4mDate[0m.tomorrow
+    [1;34m27[0m:       select category.name, [35mfrom[0m: [31m[1;31m'[0m[31mtask[category_id][1;31m'[0m[31m[0m
+    [1;34m28[0m: 
+    [1;34m29[0m:       click_link [31m[1;31m'[0m[31mAgregar un participante[1;31m'[0m[31m[0m
+ => [1;34m30[0m:       binding.pry
+    [1;34m31[0m:     [32mend[0m
+    [1;34m32[0m:   [32mend[0m
+    [1;34m33[0m: [32mend[0m
+
