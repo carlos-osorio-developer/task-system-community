@@ -42,9 +42,8 @@ class Task
 
   
   def send_email
-    part_users = participants.map(&:user)
-    ([owner] + part_users).each do |user|      
-      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
-    end
+    return unless Rails.env.development?
+    Task::SendEmail.new.call self
+    #same as Task::SendEmail.new.call(self)
   end
 end
