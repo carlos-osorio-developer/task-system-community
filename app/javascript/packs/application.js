@@ -11,6 +11,7 @@ import "channels"
 import 'bootstrap'; 
 
 import 'cocoon'
+import 'selectize'
 
 Rails.start()
 Turbolinks.start()
