@@ -8,6 +8,7 @@ class Task
   field :due_date, type: Date
   field :code, type: String
   field :status, type: String
+  field :transitions, type: Array, default: []
 
   before_create :create_code
   after_create :send_email
@@ -32,6 +33,8 @@ class Task
     state :pending, initial: true
     state :in_process, :finished
 
+    after_all_transitions :audit_status_change
+
     event :start do
       transitions from: :pending, to: :in_process
     end
@@ -39,6 +42,18 @@ class Task
     event :finish do
       transitions from: :in_process, to: :finished
     end
+  end
+
+  def audit_status_change
+    puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+    set transitions: transitions.push(
+        {
+          from_state: aasm.from_state,
+          to_state: aasm.to_state,
+          current_event: aasm.current_event,
+          timestamp: Time.zone.now
+        }
+      )
   end
 
   def commited_users
