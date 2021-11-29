@@ -1,11 +1,13 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
+  include AASM
 
   field :name, type: String
   field :description, type: String
   field :due_date, type: Date
   field :code, type: String
+  field :status, type: String
 
   before_create :create_code
   after_create :send_email
@@ -25,6 +27,19 @@ class Task
   validate :future_due_date
 
   accepts_nested_attributes_for :participants, allow_destroy: true
+
+  aasm column: :status do
+    state :pending, initial: true
+    state :in_process, :finished
+
+    event :start do
+      transitions from: :pending, to: :in_process
+    end
+
+    event :finish do
+      transitions from: :in_process, to: :finished
+    end
+  end
 
   def commited_users
     participants.includes(:user).map(&:user)

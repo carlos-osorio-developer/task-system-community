@@ -30,6 +30,7 @@ gem 'cocoon'
 gem 'cancancan'
 gem 'font-awesome-sass', '~> 5.12.0'
 gem 'sucker_punch'
+gem 'aasm'
 
 
 # Use Active Storage variant
