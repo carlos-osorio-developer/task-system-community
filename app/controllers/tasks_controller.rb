@@ -107,6 +107,7 @@ class TasksController < ApplicationController
           :user_id,          
           :role,
           :id,
+          :event,
           :_destroy
         ]
       )
