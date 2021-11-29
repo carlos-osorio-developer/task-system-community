@@ -35,7 +35,7 @@
                     .fas.fa-ellipsis-v
                   .dropdown-menu{"aria-labelledby" => "taskMenu"}
                     - available_events_for(@task).each do |state|
-                      = link_to state, trigger_task_path(@task, event: state), class: 'dropdown-item'                    
+                      = link_to state, trigger_task_path(@task, event: state), method: :patch, class: 'dropdown-item'                    
       .task-participants
         .task-participants-header
           .font-weight-bold.text-uppercase= 'Participantes'
