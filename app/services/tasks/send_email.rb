@@ -1,4 +1,4 @@
-class Task::SendEmail
+class Tasks::SendEmail
   def call(task)
     part_users = task.participants.map(&:user)
     ([task.owner] + part_users).each do |user|      

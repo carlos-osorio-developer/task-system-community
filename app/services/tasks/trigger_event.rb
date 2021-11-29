@@ -1,4 +1,4 @@
-class Task::TriggerEvent
+class Tasks::TriggerEvent
   def call(task, event)
     #dynamic way to tell task.start!, it is sending "#{event}!" method to task
     task.send "#{event}!"    

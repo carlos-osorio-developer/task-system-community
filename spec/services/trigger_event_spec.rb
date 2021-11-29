@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task::TriggerEvent do
+RSpec.describe Tasks::TriggerEvent do
   let(:participants_count) { 3 }
   let(:task) { build(:task_with_participants, participants_count: participants_count) }
 

@@ -3,6 +3,6 @@ class Tasks::SendEmailJob
 
   def perform(task_id)
     task = Task.find(task_id)
-    Task::SendEmail.new.call task
+    Tasks::SendEmail.new.call task
   end
 end
