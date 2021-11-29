@@ -11,9 +11,11 @@ import "channels"
 import 'bootstrap'; 
 
 import 'cocoon'
+import 'selectize'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-import "../stylesheets/application"
+import "../src/stylesheets/application"
+import "../src/javascripts/main"

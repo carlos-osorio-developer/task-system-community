@@ -1,11 +1,23 @@
-class Task < ApplicationRecord
+class Task
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include AASM
+
+  field :name, type: String
+  field :description, type: String
+  field :due_date, type: Date
+  field :code, type: String
+  field :status, type: String
+  field :transitions, type: Array, default: []
+
   before_create :create_code
+  after_create :send_email
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'  
 
   has_many :participants, dependent: :destroy
-  has_many :commited_users, through: :participants, source: :user
+  # has_many :commited_users, through: :participants, source: :user
 
   has_many :notes, dependent: :destroy
 
@@ -17,6 +29,36 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :participants, allow_destroy: true
 
+  aasm column: :status do
+    state :pending, initial: true
+    state :in_process, :finished
+
+    after_all_transitions :audit_status_change
+
+    event :start do
+      transitions from: :pending, to: :in_process
+    end
+
+    event :finish do
+      transitions from: :in_process, to: :finished
+    end
+  end
+
+  def audit_status_change
+    puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+    set transitions: transitions.push(
+        {
+          from_state: aasm.from_state,
+          to_state: aasm.to_state,
+          current_event: aasm.current_event,
+          timestamp: Time.zone.now
+        }
+      )
+  end
+
+  def commited_users
+    participants.includes(:user).map(&:user)
+  end
   
   def future_due_date
     return if due_date.blank?
@@ -30,9 +72,8 @@ class Task < ApplicationRecord
 
   
   def send_email
-    part_users = participants.map(&:user)
-    ([owner] + part_users).each do |user|      
-      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
-    end
+    return unless Rails.env.development?
+    Tasks::SendEmailJob.perform_async id.to_s
+    #same as Tasks::SendEmail.new.call(self)
   end
 end

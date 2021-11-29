@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   load_and_authorize_resource
-  before_action :set_task, only: %i[ show edit update destroy ]    
+  before_action :set_task, only: %i[ show edit update destroy, trigger]    
 
   # rescue_from ActiveRecord::RecordNotUnique do |exception|
   #   flash[:alert] = "participants cant be repeated in the same task"
@@ -9,9 +9,7 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.left_joins(:participants).where(
-      "participants.user_id = ? OR owner_id = ?", current_user.id, current_user.id
-    ).group(:id).order(:id)
+    @tasks = (current_user.own_tasks + current_user.commitments).uniq
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -88,6 +86,10 @@ class TasksController < ApplicationController
     end
   end
 
+  def trigger
+    Tasks::TriggerEvent.new.call @task, params[:event]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -105,6 +107,7 @@ class TasksController < ApplicationController
           :user_id,          
           :role,
           :id,
+          :event,
           :_destroy
         ]
       )
