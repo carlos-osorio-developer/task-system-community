@@ -26,7 +26,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Ruby and Ruby on Rails installed on your computer
 
-- Postgres: >=9.5
+- MongoDB
 
 - A github account
 
