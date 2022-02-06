@@ -1,4 +1,4 @@
-# Mushroom-House App
+# Task System Community
 
 This is a groupal task management App. Where you can add different kinds of tasks and add another users as collaborators.
 
