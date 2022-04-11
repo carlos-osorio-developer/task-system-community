@@ -181,7 +181,7 @@ test:
 production:
   clients:
     default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['MONGODB_URI'] || ENV['MONGO_URL'] %>
       options:
-        skip_version_check: true
-        safe: true
+        # consistency: :strong
+        # identity_map_enabled: true
