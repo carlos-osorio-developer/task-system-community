@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ['yo', 'andrea', 'leon', 'andres', 'natalia', 'camilo', 'rusbel', 'johan'].each do |name|
-  user = User.new(email: "#{name}@a.a", password: 'sumadre')
+  user = User.new(email: "#{name}@a.a", password: '123456')
   user.save
 end
 
@@ -24,8 +24,8 @@ owner = User.find_by(email: 'yo@a.a')
 
 base = [
   [
-    'Personal',
-    'Start NF ',
+    'Projects',
+    'Start developing of UX/UI project',
     ['johan:1', 'leon:2', 'andrea:random']
   ],
 
@@ -37,7 +37,7 @@ base = [
 
   [
     'Learning',
-    'Entorno de desarrollo de RoR',
+    'Keep learning RoR',
     ['johan:1', 'leon:2', 'andrea:random']
   ],
 
@@ -61,7 +61,7 @@ base.each do |category, description, participant_set|
 
   Task.create!(
     category: Category.find_by(name: category),
-    name: "Tarea ##{Task.count + 1}",
+    name: "Task ##{Task.count + 1}",
     description: description,
     due_date: Date.today + 15.days,
     owner: owner,
