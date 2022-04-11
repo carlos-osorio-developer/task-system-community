@@ -1,6 +1,6 @@
 .tasks.index-page
-  .display-4 Lista de Tareas
-  %p.text-muted.mb-2 A continuación verás toda la lista de tareas creadas, podrás crear una nueva tarea, editarla o eliminarla si eres el creador de la misma
+  .display-4 Task List
+  %p.text-muted.mb-2 Here you will see the entire list of created tasks, you can create a new task, edit it or delete it if you are the creator of it
   .card.bg-gray
     .card-body.pb-2
       .tasks-container
@@ -15,7 +15,7 @@
               .task-description= task.description
               .task-dates
                 %b= task.owner.email
-                = "creado el #{l task.created_at, format: :long} / vence el #{task.due_date}"
+                = "created at #{l task.created_at, format: :long} / due date is #{task.due_date}"
             .task-interactions
               .task-participants
                 - task.participants.includes(:user).each do |participant|
